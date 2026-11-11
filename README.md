@@ -7,6 +7,7 @@
 - 逐页中文与TikZ排版：`pages/p01.tex` 至 `pages/p43.tex`
 - 对照原稿：`assets/original.pdf`
 - 复核说明：`REVIEW.md`
+- 原文疑点联网查证（独立于忠实译稿）：[`research/README.md`](research/README.md)
 - 编译：`./build.ps1`
 
 ## 排版与图形
@@ -20,3 +21,4 @@ Windows、Tectonic（或支持XeLaTeX的TeX发行版），以及Arial、SimSun�
 ## 来源和版权
 
 本项目是非官方中文翻译。原文来源为用户提供的 `DEF63F1ECCF452016DB393E7230F7AC6.pdf`，版权属于Monolithic Power Systems, Inc.。原文保留“MPS专有信息、受专利保护、未经授权禁止复印与复制”的声明。本仓库不对原文及其图表另行授予许可。原文中的内部矛盾单独列在复核说明中，未擅自修改其技术结论。
+
