@@ -1,0 +1,91 @@
+\zhbox{54}{64}{235}{132}{10}{\textbf{I\textsuperscript{2}C 数据传输}\par
+SDA 线上的每个字节应为8位，随后应跟随一个应答（ACK）位。ACK 时钟脉冲由主机产生。发送器在 ACK 时钟脉冲期间释放 SDA（SDA为高）；接收器在该脉冲期间拉低 SDA，使 SDA 在该时钟脉冲的高电平期间稳定为低。}
+\zhbox{54}{267}{234}{16}{10}{\centering\textbf{图8：完整数据传输}}
+\zhbox{54}{286}{234}{57}{10}{图8显示完整传输格式。起始（S）条件后发送7位从地址，随后为第8位方向位（R/W）。0表示发送（W），1表示请求数据（R）。}
+\zhbox{324}{64}{235}{280}{10}{数据传输始终由主机产生的停止（P）条件终止。若主机需要继续在总线上通信，可产生重复起始（S）条件并寻址另一从机，无需先产生停止条件。\par
+MP2984 内置完整的 I\textsuperscript{2}C 从控制器，符合 I\textsuperscript{2}C 规范。更新单个数据需要起始条件、有效 I\textsuperscript{2}C 地址、寄存器地址字节及数据字节。每收到一个字节，MP2984 都在单个时钟脉冲的高电平期间拉低 SDA 以应答。有效地址选中 MP2984 后，器件在最低有效位字节的下降沿执行更新。\par
+图9和图10分别给出 I\textsuperscript{2}C 写入及读取命令示例。}
+
+% 图8文字说明保留原时序波形，其余两幅传输框图用 TikZ 重排。
+\zhbox{70}{238}{17}{8}{3.4}{起始条件}
+\zhbox{259}{238}{17}{8}{3.4}{停止条件}
+\zhbox{95}{250}{16}{6}{3.4}{地址}
+\zhbox{159}{250}{12}{6}{3.4}{数据}
+\zhbox{213}{250}{12}{6}{3.4}{数据}
+\mask{54}{345}{504}{270}
+\filldraw[fill=white,draw=black,line width=.4bp] (96,374) rectangle ++(12,16);
+\attext{97}{378}{10}{6.5}{\centering S}
+\filldraw[fill=white,draw=black,line width=.4bp] (108,374) rectangle ++(64,16);
+\attext{109}{378}{62}{6.5}{\centering 从地址}
+\filldraw[fill=white,draw=black,line width=.4bp] (172,374) rectangle ++(25,16);
+\attext{173}{378}{23}{6.5}{\centering WR}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (197,374) rectangle ++(14,16);
+\attext{198}{378}{12}{6.5}{\centering A}
+\filldraw[fill=white,draw=black,line width=.4bp] (211,374) rectangle ++(87,16);
+\attext{212}{378}{85}{6.5}{\centering 寄存器地址}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (298,374) rectangle ++(14,16);
+\attext{299}{378}{12}{6.5}{\centering A}
+\filldraw[fill=white,draw=black,line width=.4bp] (312,374) rectangle ++(65,16);
+\attext{313}{378}{63}{6.5}{\centering 写入数据}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (377,374) rectangle ++(14,16);
+\attext{378}{378}{12}{6.5}{\centering A}
+\filldraw[fill=white,draw=black,line width=.4bp] (391,374) rectangle ++(12,16);
+\attext{392}{378}{10}{6.5}{\centering P}
+\attext{108}{356}{89}{7}{\centering 8位}
+\attext{211}{356}{87}{7}{\centering 8位}
+\attext{312}{356}{65}{7}{\centering 8位}
+\attext{54}{442}{504}{10}{\centering\textbf{图9：I\textsuperscript{2}C 写入示例}}
+\filldraw[fill=white,draw=black,line width=.4bp] (54,501) rectangle ++(12,16);
+\attext{55}{505}{10}{6.5}{\centering S}
+\filldraw[fill=white,draw=black,line width=.4bp] (66,501) rectangle ++(60,16);
+\attext{67}{505}{58}{6.5}{\centering 从地址}
+\filldraw[fill=white,draw=black,line width=.4bp] (126,501) rectangle ++(24,16);
+\attext{127}{505}{22}{6.5}{\centering WR}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (150,501) rectangle ++(12,16);
+\attext{151}{505}{10}{6.5}{\centering A}
+\filldraw[fill=white,draw=black,line width=.4bp] (162,501) rectangle ++(75,16);
+\attext{163}{505}{73}{6.5}{\centering 寄存器地址}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (237,501) rectangle ++(12,16);
+\attext{238}{505}{10}{6.5}{\centering A}
+\filldraw[fill=white,draw=black,line width=.4bp] (249,501) rectangle ++(15,16);
+\attext{250}{505}{13}{6.5}{\centering Sr}
+\filldraw[fill=white,draw=black,line width=.4bp] (264,501) rectangle ++(60,16);
+\attext{265}{505}{58}{6.5}{\centering 从地址}
+\filldraw[fill=white,draw=black,line width=.4bp] (324,501) rectangle ++(24,16);
+\attext{325}{505}{22}{6.5}{\centering RD}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (348,501) rectangle ++(12,16);
+\attext{349}{505}{10}{6.5}{\centering A}
+\filldraw[fill=yellow,draw=black,line width=.4bp] (360,501) rectangle ++(60,16);
+\attext{361}{505}{58}{6.5}{\centering 读取数据}
+\filldraw[fill=white,draw=black,line width=.4bp] (420,501) rectangle ++(20,16);
+\attext{421}{505}{18}{6.5}{\centering NA}
+\filldraw[fill=white,draw=black,line width=.4bp] (440,501) rectangle ++(12,16);
+\attext{441}{505}{10}{6.5}{\centering P}
+\attext{66}{483}{84}{7}{\centering 8位}
+\attext{162}{483}{75}{7}{\centering 8位}
+\attext{264}{483}{84}{7}{\centering 8位}
+\attext{360}{483}{60}{7}{\centering 8位}
+\attext{110}{525}{165}{7}{指定要读取的寄存器地址}
+\attext{300}{525}{245}{7}{从当前寄存器位置读取数据}
+\filldraw[fill=white,draw=black] (83,406) rectangle ++(12,12);
+\filldraw[fill=yellow,draw=black] (83,424) rectangle ++(12,12);
+\attext{101}{408}{87}{6.5}{主机至从机}
+\attext{101}{426}{87}{6.5}{从机至主机}
+\attext{192}{408}{155}{6.5}{A = 应答（SDA为低）}
+\attext{192}{426}{155}{6.5}{NA = 非应答（SDA为高）}
+\attext{350}{408}{90}{6.5}{S = 起始条件}
+\attext{350}{426}{90}{6.5}{P = 停止条件}
+\attext{467}{408}{90}{6.5}{WR 写入 = 0}
+\attext{467}{426}{90}{6.5}{RD 读取 = 1}
+\filldraw[fill=white,draw=black] (83,554) rectangle ++(12,12);
+\filldraw[fill=yellow,draw=black] (83,572) rectangle ++(12,12);
+\attext{101}{556}{87}{6.5}{主机至从机}
+\attext{101}{574}{87}{6.5}{从机至主机}
+\attext{192}{556}{155}{6.5}{A = 应答（SDA为低）}
+\attext{192}{574}{155}{6.5}{NA = 非应答（SDA为高）}
+\attext{350}{556}{90}{6.5}{S = 起始条件}
+\attext{350}{574}{90}{6.5}{P = 停止条件}
+\attext{467}{556}{90}{6.5}{WR 写入 = 0}
+\attext{467}{574}{90}{6.5}{RD 读取 = 1}
+\attext{350}{589}{140}{6.5}{Sr = 重复起始条件}
+\attext{54}{607}{504}{10}{\centering\textbf{图10：I\textsuperscript{2}C 读取示例}}

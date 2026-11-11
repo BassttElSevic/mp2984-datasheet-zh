@@ -1,0 +1,36 @@
+\zhbox{54}{64}{235}{656}{9.5}{其中 Gain 的典型值为18.8 mV/V，$R_{SENSE2}$ 为平均负载电流检测电阻。\par
+\textbf{可配置软启动时间（$t_{SS}$）}\par
+SS 引脚设置软启动时间，可由式(5)估算：\par
+\resizebox{\linewidth}{!}{$t_{SS}(\mathrm{ms})=C_{SS}(\mathrm{nF})\times V_{REF}(\mathrm{V})/I_{SS}(\mu\mathrm{A})\quad(5)$}\par
+其中充电电流 $I_{SS}$ 约6 $\mu$A，软启动电容 $C_{SS}=47$ nF，$V_{REF}=0.5$ V，因此 $t_{SS}$ 约3.9 ms。\par
+\textbf{变化率控制和输出放电}\par
+内部 SR 位设置输出变化率。$V_{REF}$ 的上升及下降变化率可设为38、50、75或150 mV/ms。\par
+电压过渡期间，GO\_BIT 置1即使放电通路工作；GO\_BIT 复位至0（如 $V_{REF}$ 变化完成后）则禁用放电通路。若 $V_{REF}$ 变化完成前 $V_{OUT}$ 未放电至目标电压（例如 $C_{OUT}$ 较大），可使用 OVP 放电功能或 DISCHG 位继续对输出放电。\par
+以下情况可使输出放电：\par
+\textbullet\ GO\_BIT=1：使能放电通路，延迟20 ms后 GO\_BIT 复位至0。\par
+\textbullet\ DISCHG=1。\par
+\textbullet\ OVP\_MODE=01，且 $V_{FB}>127\%V_{REF}$。\par
+\textbullet\ ENPWR 关闭：使能放电200 ms。\par
+\textbullet\ EN 引脚关闭：使能放电200 ms。\par
+\textbullet\ 触发输入 UVLO 且尚有残余 $V_{AVDD}$：使能放电200 ms；若 $V_{AVDD}$ 下降，可能禁用该通路。\par
+\textbf{电流限制控制（ILIM）}\par
+启动期间，ILIM 引脚状态锁存至寄存器，并设置 ILIM 位默认值。启动后，引脚状态变化不应影响寄存器状态，除非引脚状态改变或器件关闭。\par
+\textbf{频率控制（FS）}\par
+启动期间，FS 引脚状态锁存至寄存器，并设置默认 FSW 位值。启动后，引脚状态变化不应影响寄存器状态，除非引脚状态改变或器件关闭。}
+\zhbox{324}{64}{235}{469}{10}{\textbf{输入电压调节环路（VINREG）}\par
+VINREG 引脚设置最小工作 $V_{IN}$。若 $V_{IN}$ 降至设定电平，SS 被拉低以减小 $I_{OUT}$ 并维持 $V_{IN}$。若 $V_{IN}$ 低于 VINREG 阈值，IC 停止向输出转换功率。\par
+\textbf{热关断}\par
+热关断可防止器件在过高温度下工作。若结温（$T_J$）超过150 $^\circ$C，MP2984 关闭；$T_J$ 降至125 $^\circ$C以下后，IC 通过软启动恢复正常工作。若触发热关断且 INT 未被屏蔽，INT 被拉低。\par
+\textbf{I\textsuperscript{2}C 接口}\par
+I\textsuperscript{2}C 接口有4种设备地址（定义为1100xxx），通过 ADDR 与 AVDD 之间的电阻分压器设置。地址为7位，后接第8位读写（R/W）方向位。1表示读命令，0表示写命令（R=1，W=0）。该7位地址作为从地址，支持标准模式（100 kbps）和快速模式（400 kbps）通信。\par
+表1列出可配置设备地址。ADDR 引脚还影响 ENPWR 位默认值。}
+\zhbox{324}{534}{234}{15}{10}{\centering\textbf{表1：设备地址设置}}
+\zhbox{324}{548}{234}{120}{8}{\renewcommand{\arraystretch}{1.45}\setlength{\tabcolsep}{5bp}\begin{tabular}{|c|c|c|c|}\hline
+设备地址 & $R_{TOP}$ & $R_{BOT}$ & 默认\\
+ & & & ENPWR\\\hline
+60h (1100 000)&--&0 $\Omega$&1\\\hline
+62h (1100 010)&100 k$\Omega$&59 k$\Omega$&1\\\hline
+64h (1100 100)&68 k$\Omega$&100 k$\Omega$&0\\\hline
+66h (1100 110)&0 $\Omega$&--&0\\\hline
+\end{tabular}}
+\zhbox{324}{672}{234}{34}{10}{更多详情参见第31页“I\textsuperscript{2}C 寄存器”一节。}

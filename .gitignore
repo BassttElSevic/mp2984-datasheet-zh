@@ -1,3 +1,14 @@
 *.aux
 *.log
 *.out
+*.xdv
+/tmp/
+/tmp-operation/
+/assets/pages/
+/audit-heights.tex
+/performance-review.tex
+/review-operation.tex
+/review-operation.pdf
+/tmp-app.*
+/output/pdf/main.pdf
+/original-extracted.txt
